@@ -1,0 +1,21 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-claim
+  namespace: postgresql
+  annotations:
+    # [REQUIRED] StorageClass label
+    volume.beta.kubernetes.io/storage-class: 980d025e2c3e4c53a3452facb98b551e
+  labels:
+    username: "sreenivasay"
+
+    # [OPTIONAL] Domain information for the username provided above
+    userDomain: "local"
+
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      # [REQUIRED] Supported units: (B|Ki|KiB|Mi|MiB|Gi|GiB|Ti|TiB)
+      storage: "4Gi"
