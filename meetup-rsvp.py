@@ -45,9 +45,10 @@ async def main():
     )
     
     async with pool.acquire() as connection:
-        query = "CREATE TABLE "+ db_name +".public.meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
-
         try:
+            query = "CREATE EXTENSION IF NOT EXISTS "uuid-ossp";"
+            await connection.execute(query)
+            query = "CREATE TABLE "+ db_name +".public.meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
             await connection.execute(query)
             logging.info(query)
         except Exception as e:
