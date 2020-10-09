@@ -2,7 +2,7 @@
 
 Docker with Python application reads Json Stream and stores rsvp json to Postgresql
 
-## Command to build and 
+## Command to build container image 
 ```
 docker build -t meetup-rsvp .
 ```
@@ -20,6 +20,15 @@ docker run  -e WS_URL=ws://stream.meetup.com/2/rsvps \
   -e LOG_LEVEL=error \
   -e SHOW_ERROR=false \
   meetup-rsvp
+```
+
+## Kubernetes
+```
+$ kubectl create ns postgresql
+$ kubectl apply -f postgresql-pvc.yml -n postgresql
+$ kubectl apply -f postgresql-configmap.yml -n postgresql
+$ kubectl apply -f postgresql-deployment.yml -n postgresql
+$ kubectl apply -f postgresql-service.yml -n postgresql
 ```
 
 ## Ref
