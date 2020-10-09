@@ -10,7 +10,7 @@ docker build -t meetup-rsvp .
 ## Command to run container
 ```
 docker run  -e WS_URL=ws://stream.meetup.com/2/rsvps \
-  -e DB_HOST=postgres-postgresql-scdc1-staging-ysree-ss-backend.svc-stage.eng.vmware.com \
+  -e DB_HOST=10.10.10.1 \
   -e PORT=5432 \
   -e DB_USERNAME=postgres \
   -e DB_PASSWORD=postgres \
