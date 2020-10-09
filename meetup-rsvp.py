@@ -33,7 +33,7 @@ if show_error.lower() == "true":
 logging.basicConfig(level=level)
 loop = asyncio.get_event_loop()
 
-async def main():
+async def get_connection_pool():
     pool = await asyncpg.create_pool(
         host=db_host,
         port=db_port,
@@ -43,6 +43,17 @@ async def main():
         min_size=db_pool_min_size,
         max_size=db_pool_max_size,
     )
+    async with pool.acquire() as connection:
+        query = "CREATE TABLE books_service.public.meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
+        try:
+            await connection.execute(query)
+            logging.info(query)
+        except Exception as e:
+            logging.error(e.message + ":SQL:" + query, exc_info=False)
+
+    return pool
+
+async def main(pool):
     async with aiohttp.ClientSession() as session:
         ws  = await session.ws_connect(ws_url)
         while True:
@@ -57,5 +68,6 @@ async def main():
                         logging.error(e.message+":SQL:" + query, exc_info=exec_info)
                         #pass
                 
-multiple_coroutines = [main() for _ in range(1)]
+pool = get_connection_pool()
+multiple_coroutines = [main(pool) for _ in range(1)]
 loop.run_until_complete(asyncio.gather(*multiple_coroutines))
