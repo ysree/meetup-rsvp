@@ -5,16 +5,16 @@ import asyncpg
 import logging
 import json
 
-ws_url = os.environ['ws_url']
-db_host = os.environ['db_host']
-db_port = os.environ['db_port']
-db_user = os.environ['db_user']
-db_password = os.environ['db_password']
-db_name = os.environ['db_name']
-db_pool_min_size = int(os.environ['db_pool_min_size'])
-db_pool_max_size = int(os.environ['db_pool_max_size'])
-show_error = os.environ['show_error']
-log_level = os.environ['log_level']
+ws_url = os.environ['WS_URL']
+db_host = os.environ['HOST_NAME']
+db_port = os.environ['PORT']
+db_user = os.environ['DB_USERNAME']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_USERNAME']
+db_pool_min_size = int(os.environ['DB_POOL_MIN_SIZE'])
+db_pool_max_size = int(os.environ['DB_POOL_MAX_SIZE'])
+log_level = os.environ['LOG_LEVEL']
+show_error = os.environ['SHOW_ERROR']
 
 level = logging.INFO
 if log_level.lower() == 'error':
