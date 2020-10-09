@@ -18,11 +18,15 @@ spec:
       - image: ysree/meetup-rsvp
         name: meetup-rsvp
         env:
-        - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres:5432/postgresdb
-        - name: SPRING_DATASOURCE_USERNAME
+        - name: HOST_NAME
           value: postgres
-        - name: SPRING_DATASOURCE_PASSWORD
+        - name: PORT
+          value: 5432
+        - name: DB_NAME
+          value: postgresdb
+        - name: DB_USERNAME
+          value: postgres
+        - name: DB_PASSWORD
           value: postgres
         - name: WS_URL
           value: ws://stream.meetup.com/2/rsvps
