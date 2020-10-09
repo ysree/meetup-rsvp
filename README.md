@@ -1,4 +1,4 @@
-# Json Stream to Postgresql
+# Meetup.com RSVP json message Stream to Postgresql
 
 Python based Docker application reads Json Stream and stores rsvp json messages to Postgresql
 
