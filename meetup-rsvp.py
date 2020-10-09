@@ -6,7 +6,7 @@ import logging
 import json
 
 ws_url = os.environ['WS_URL']
-db_host = os.environ['HOST_NAME']
+db_host = os.environ['DB_HOST']
 db_port = os.environ['PORT']
 db_user = os.environ['DB_USERNAME']
 db_password = os.environ['DB_PASSWORD']
