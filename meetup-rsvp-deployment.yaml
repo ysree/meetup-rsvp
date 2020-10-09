@@ -18,7 +18,7 @@ spec:
       - image: ysree/meetup-rsvp
         name: meetup-rsvp
         env:
-        - name: HOST_NAME
+        - name: DB_HOST
           value: postgres
         - name: PORT
           value: 5432
