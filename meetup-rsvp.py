@@ -54,6 +54,14 @@ async def get_connection_pool():
     return pool
 
 async def main(pool):
+    async with pool.acquire() as connection:
+        query = "CREATE TABLE "+ db_name +".public.meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
+        try:
+            await connection.execute(query)
+            logging.info(query)
+        except Exception as e:
+            logging.error(e.message + ":SQL:" + query, exc_info=False)
+            
     async with aiohttp.ClientSession() as session:
         ws  = await session.ws_connect(ws_url)
         while True:
@@ -68,6 +76,5 @@ async def main(pool):
                         logging.error(e.message+":SQL:" + query, exc_info=exec_info)
                         #pass
                 
-pool = get_connection_pool()
-multiple_coroutines = [main(pool) for _ in range(1)]
+multiple_coroutines = [main() for _ in range(1)]
 loop.run_until_complete(asyncio.gather(*multiple_coroutines))
