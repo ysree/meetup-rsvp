@@ -1,6 +1,6 @@
 # Json Stream to Postgresql
 
-Docker with Python application reads Json Stream and stores rsvp json to Postgresql
+Python based Docker application reads Json Stream and stores rsvp json messages to Postgresql
 
 ## Command to build container image 
 ```
