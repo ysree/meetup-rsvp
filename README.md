@@ -25,7 +25,6 @@ docker run  -e WS_URL=ws://stream.meetup.com/2/rsvps \
 ## Kubernetes
 ```
 $ kubectl create ns postgresql
-$ kubectl apply -f postgresql-pvc.yml -n postgresql
 $ kubectl apply -f postgresql-configmap.yml -n postgresql
 $ kubectl apply -f postgresql-deployment.yml -n postgresql
 $ kubectl apply -f postgresql-service.yml -n postgresql
