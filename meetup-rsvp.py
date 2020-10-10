@@ -10,7 +10,7 @@ db_host = os.environ['DB_HOST']
 db_port = os.environ['PORT']
 db_user = os.environ['DB_USERNAME']
 db_password = os.environ['DB_PASSWORD']
-db_name = os.environ['DB_USERNAME']
+db_name = os.environ['DB_NAME']
 db_pool_min_size = int(os.environ['DB_POOL_MIN_SIZE'])
 db_pool_max_size = int(os.environ['DB_POOL_MAX_SIZE'])
 log_level = os.environ['LOG_LEVEL']
@@ -46,9 +46,9 @@ async def main():
     
     async with pool.acquire() as connection:
         try:
-            query = "CREATE EXTENSION IF NOT EXISTS "uuid-ossp";"
+            query = 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
             await connection.execute(query)
-            query = "CREATE TABLE "+ db_name +".public.meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
+            query = "CREATE TABLE meetup_rsvp (uuid_ uuid NOT NULL DEFAULT uuid_generate_v4(), data jsonb NOT NULL DEFAULT '{}'::jsonb, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (uuid_))"
             await connection.execute(query)
             logging.info(query)
         except Exception as e:
@@ -70,3 +70,4 @@ async def main():
                 
 multiple_coroutines = [main() for _ in range(1)]
 loop.run_until_complete(asyncio.gather(*multiple_coroutines))
+
