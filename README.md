@@ -24,7 +24,7 @@ docker run  -e WS_URL=ws://stream.meetup.com/2/rsvps \
 
 ## Kubernetes
 
-* Update `storageClassName` in `postgresql-statefulset.yaml` file before running kubectl commands
+* Update `storageClassName` in `postgresql-statefulset.yaml` file before applying kubectl commands
 
 ```
 $ kubectl create ns postgresql
