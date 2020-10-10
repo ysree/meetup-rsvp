@@ -60,9 +60,9 @@ async def main():
             msg = await ws.receive()
             async with pool.acquire() as connection:
                 if not msg is None:
-                    query = "INSERT INTO meetup_rsvp (uuid_, data, created_at) VALUES(uuid_generate_v4(), '"+ json.dumps(msg.json()) +"'::jsonb, CURRENT_TIMESTAMP)"
+                    query = "INSERT INTO meetup_rsvp (uuid_, data, created_at) VALUES(uuid_generate_v4(), $1::jsonb, CURRENT_TIMESTAMP)"
                     try:
-                        await connection.execute(query)
+                        await connection.execute(query, json.dumps(msg.json()))
                         logging.info(query)
                     except Exception as e:
                         logging.error(e.message+":SQL:" + query, exc_info=exec_info)
