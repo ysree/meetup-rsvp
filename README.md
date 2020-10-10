@@ -28,6 +28,7 @@ $ kubectl create ns postgresql
 $ kubectl apply -f postgresql-configmap.yml -n postgresql
 $ kubectl apply -f postgresql-statefulset.yaml -n postgresql
 $ kubectl apply -f postgresql-service.yml -n postgresql
+$ kubectl apply -f meetup-deployment.yaml -n postgresql
 ```
 
 ## Ref
